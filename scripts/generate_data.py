@@ -10,8 +10,8 @@ import numpy as np
 import pandas as pd
 
 RANDOM_STATE = 20260814
-N_TRAIN = 3000
-N_TEST = 800
+N_TRAIN = 4000
+N_TEST = 1000
 
 # 契約形態ごとの解約しやすさ（対数オッズへの寄与）
 CONTRACT_EFFECT = {"monthly": 1.1, "one_year": 0.2, "two_year": -0.6}
