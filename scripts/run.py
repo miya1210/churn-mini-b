@@ -29,7 +29,7 @@ def main() -> None:
     model = build_model().fit(x_train, y_train)
     proba = model.predict_proba(build_features(test))[:, 1]
 
-    out_path = ROOT / "submission.csv"
+    out_path = ROOT / "submissions" / "submission.csv"
     pd.DataFrame(
         {"customer_id": test["customer_id"], "churn_proba": proba}
     ).to_csv(out_path, index=False)
