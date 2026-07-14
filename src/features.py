@@ -15,5 +15,5 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     out = pd.DataFrame(index=df.index)
     out["tenure"] = df["tenure"]
     out["monthly_charges"] = df["monthly_charges"]
-    out["n_support"] = df["support_calls"]
+    out["support_calls"] = df["support_calls"]
     return out
