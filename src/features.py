@@ -16,4 +16,6 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     out["tenure"] = df["tenure"]
     out["monthly_charges"] = df["monthly_charges"]
     out["support_calls"] = df["support_calls"]
-    return out
+
+    dummies = pd.get_dummies(df["contract"], prefix="contract", dtype=float)
+    return out.join(dummies)
