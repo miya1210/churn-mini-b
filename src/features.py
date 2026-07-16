@@ -2,6 +2,9 @@
 
 import pandas as pd
 
+# 契約形態のダミー変数で使う水準（順序を固定して列の並びを安定させる）
+CONTRACT_LEVELS = ["monthly", "one_year", "two_year"]
+
 
 def build_features(df: pd.DataFrame) -> pd.DataFrame:
     """説明変数のデータフレームを返す。
@@ -17,5 +20,7 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     out["monthly_charges"] = df["monthly_charges"]
     out["support_calls"] = df["support_calls"]
 
-    dummies = pd.get_dummies(df["contract"], prefix="contract", dtype=float)
+    contract = pd.Categorical(df["contract"], categories=CONTRACT_LEVELS)
+    dummies = pd.get_dummies(contract, prefix="contract", dtype=float)
+    dummies.index = out.index
     return out.join(dummies)
