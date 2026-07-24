@@ -21,6 +21,10 @@ def main() -> None:
     x_train = build_features(train)
     y_train = train["churn"]
 
+    # いま何を材料にしているかを毎回出す。自分の変更が効いているかがここで分かる
+    print(f"[{TRACKING_PROJECT}] 特徴量({len(x_train.columns)}): "
+          f"{', '.join(x_train.columns)}")
+
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
     scores = cross_val_score(
         build_model(), x_train, y_train, cv=cv, scoring="roc_auc"
