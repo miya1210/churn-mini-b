@@ -9,6 +9,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from config import TRACKING_PROJECT  # noqa: E402
 from src.features import build_features  # noqa: E402
 from src.model import RANDOM_STATE, build_model  # noqa: E402
 
@@ -24,7 +25,7 @@ def main() -> None:
     scores = cross_val_score(
         build_model(), x_train, y_train, cv=cv, scoring="roc_auc"
     )
-    print(f"CV AUC = {scores.mean():.4f}")
+    print(f"[{TRACKING_PROJECT}] CV AUC = {scores.mean():.4f}")
 
     model = build_model().fit(x_train, y_train)
     proba = model.predict_proba(build_features(test))[:, 1]
