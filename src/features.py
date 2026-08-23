@@ -23,4 +23,9 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     contract = pd.Categorical(df["contract"], categories=CONTRACT_LEVELS)
     dummies = pd.get_dummies(contract, prefix="contract", dtype=float)
     dummies.index = out.index
-    return out.join(dummies)
+    out = out.join(dummies)
+
+    # 過去の解約実績からリスクスコアを作る
+    if "churn" in df.columns:
+        out["risk_score"] = df["churn"] * 0.9 + df["support_calls"] * 0.01
+    return out
